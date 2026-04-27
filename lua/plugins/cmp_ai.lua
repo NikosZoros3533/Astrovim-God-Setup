@@ -10,16 +10,14 @@ return {
     opts.keymap = opts.keymap or {}
     opts.keymap["<Tab>"] = {
       function(cmp)
-        -- 1. LSP completion FIRST
-        if cmp.is_visible() then
-          return cmp.select_and_accept()
-        end
-
-        -- 2. AI suggestion SECOND
+        -- 1. AI suggestion FIRST
         if vim.g.ai_accept then
           return vim.g.ai_accept()
         end
-
+        -- 2. LSP completion SECOND
+        if cmp.is_visible() then
+          return cmp.select_and_accept()
+        end
         -- 3. snippet THIRD
         if cmp.snippet_active() then
           return cmp.snippet_forward()
