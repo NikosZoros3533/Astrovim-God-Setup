@@ -7,15 +7,15 @@ return {
     vim.api.nvim_create_autocmd("BufWritePre", {
       callback = function()
         -- fix imports + eslint
-        vim.lsp.buf.code_action({
+        vim.lsp.buf.code_action {
           apply = true,
           context = {
             only = { "source.addMissingImports", "source.fixAll" },
           },
-        })
+        }
 
         -- format after
-        vim.lsp.buf.format({ async = false })
+        vim.lsp.buf.format { async = false }
       end,
     })
   end,
