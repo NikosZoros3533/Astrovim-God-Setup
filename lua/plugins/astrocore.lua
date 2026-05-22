@@ -8,25 +8,26 @@
 ---@type LazySpec
 return {
   "AstroNvim/astrocore",
+
   ---@type AstroCoreOpts
   opts = {
     mappings = {
       n = {
         ["<Leader>c"] = {
           function()
-            local bufs = vim.fn.getbufinfo({ buflisted = true })
+            local bufs = vim.fn.getbufinfo { buflisted = 1, listed = 1 }
+
             require("astrocore.buffer").close(0)
-            if not bufs[2] then
-              require("snacks").dashboard()
-            end
+
+            -- if last buffer -> open dashboard
+            if not bufs[2] then require("snacks").dashboard() end
           end,
           desc = "Close buffer",
         },
       },
     },
   },
-}
--- return {
+} -- return {
 --   "AstroNvim/astrocore",
 --   ---@type AstroCoreOpts
 --   opts = {
