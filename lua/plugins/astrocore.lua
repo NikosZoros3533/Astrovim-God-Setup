@@ -24,6 +24,13 @@ return {
           end,
           desc = "Close buffer",
         },
+        ["<Leader>zy"] = {
+          function()
+            vim.cmd "%y+"
+            vim.notify "Entire buffer copied"
+          end,
+          desc = "Yank whole buffer",
+        },
       },
     },
   },
