@@ -1,35 +1,42 @@
 local M = {}
 
-local love_job = nil
-local love_term_buf = nil
+-- separate state (IMPORTANT: no type ambiguity anymore)
+local love_job = nil -- jobstart ("love .")
+local love_term = nil -- ToggleTerm ("lovec .")
 
 local function get_root() return vim.fs.root(0, { "main.lua", "conf.lua" }) end
 
+-- =========================================
+-- SILENT RUN (no visible terminal)
+-- =========================================
 function M.run()
   local root = get_root()
 
   if not root then return vim.notify("No LÖVE root", vim.log.levels.ERROR) end
 
-  if love_job then return vim.notify "Already running" end
+  if love_job or love_term then return vim.notify "LÖVE already running" end
 
   love_job = vim.fn.jobstart("love .", {
     cwd = root,
     detach = true,
   })
 
-  vim.notify "LÖVE started"
+  vim.notify "LÖVE started (silent)"
 end
 
+-- =========================================
+-- TERMINAL RUN (logs via ToggleTerm)
+-- =========================================
 function M.runWithLog()
   local root = get_root()
 
   if not root then return vim.notify("No LÖVE root", vim.log.levels.ERROR) end
 
-  if love_job then return vim.notify "Already running" end
+  if love_job or love_term then return vim.notify "LÖVE already running" end
 
   local Terminal = require("toggleterm.terminal").Terminal
 
-  local love_term = Terminal:new {
+  love_term = Terminal:new {
     cmd = "lovec .",
     dir = root,
     direction = "horizontal",
@@ -40,20 +47,36 @@ function M.runWithLog()
 
   love_term:toggle()
 
-  love_job = love_term
-
-  vim.notify "LÖVE started with console"
+  vim.notify "LÖVE started (console)"
 end
+
+-- =========================================
+-- STOP EVERYTHING (SAFE CLEANUP)
+-- =========================================
 function M.stop()
+  -- stop silent job
   if love_job then
-    love_job:shutdown()
+    vim.fn.jobstop(love_job)
     love_job = nil
-    vim.notify "LÖVE stopped"
   end
+
+  -- stop toggleterm instance
+  if love_term then
+    love_term:shutdown()
+    love_term = nil
+  end
+
+  -- force kill leftover processes (Windows safety net)
+  vim.fn.system "taskkill /IM love.exe /F >nul 2>&1"
+
+  vim.notify "LÖVE stopped"
 end
 
-vim.keymap.set("n", "<leader>vr", M.run, { desc = "Run LÖVE" })
-vim.keymap.set("n", "<leader>vc", M.runWithLog, { desc = "Run LÖVE with console" })
+-- =========================================
+-- KEYMAPS
+-- =========================================
+vim.keymap.set("n", "<leader>vr", M.run, { desc = "Run LÖVE (silent)" })
+vim.keymap.set("n", "<leader>vc", M.runWithLog, { desc = "Run LÖVE (console)" })
 vim.keymap.set("n", "<leader>ve", M.stop, { desc = "Stop LÖVE" })
 
 return M
