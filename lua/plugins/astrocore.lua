@@ -31,6 +31,15 @@ return {
           end,
           desc = "Yank whole buffer",
         },
+        ["<Leader>gA"] = {
+          function()
+            vim.ui.input({ prompt = "Ship message: " }, function(input)
+              if not input or input == "" then return end
+              vim.cmd('split | terminal ship -m "' .. input .. '"')
+            end)
+          end,
+          desc = "Ship with message",
+        },
       },
       v = {
         ["p"] = {
