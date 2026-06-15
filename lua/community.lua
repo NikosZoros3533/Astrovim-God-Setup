@@ -7,5 +7,8 @@ return {
   "AstroNvim/astrocommunity",
   { import = "astrocommunity.pack.lua" },
   { import = "astrocommunity.colorscheme.gruvbox-nvim" },
-  -- import/override with your plugins folder
+  { import = "astrocommunity.motion.marks-nvim" },
+  { import = "astrocommunity.motion.mini-move" },
+  { import = "astrocommunity.motion.mini-surround" },
+  { import = "astrocommunity.quickfix.quicker-nvim" },
 }
