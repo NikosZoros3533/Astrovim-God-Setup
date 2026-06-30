@@ -11,14 +11,14 @@ return {
     -- change colorscheme
     colorscheme = "gruvbox",
     -- AstroUI allows you to easily modify highlight groups easily for any and all colorschemes
-    -- highlights = {
-    --   init = { -- this table overrides highlights in all themes
-    --     -- Normal = { bg = "#000000" },
-    --   },
-    --   astrodark = { -- a table of overrides/changes when applying the astrotheme theme
-    --     -- Normal = { bg = "#000000" },
-    --   },
-    -- },
+    highlights = {
+      init = { -- this table overrides highlights in all themes
+        -- Normal = { bg = "#000000" },
+        LspReferenceText = { bg = "NONE", underline = false },
+        LspReferenceRead = { bg = "NONE", underline = false },
+        LspReferenceWrite = { bg = "NONE", underline = false },
+      },
+    },
     -- Icons can be configured throughout the interface
     icons = {
       -- configure the loading of the lsp in the status line
@@ -32,11 +32,6 @@ return {
       LSPLoading8 = "⠧",
       LSPLoading9 = "⠇",
       LSPLoading10 = "⠏",
-    },
-    diagnostics = {
-      virtual_text = true,
-      underline = true,
-      update_in_insert = false,
     },
   },
 }

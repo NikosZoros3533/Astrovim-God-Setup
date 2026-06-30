@@ -35,15 +35,10 @@ return {
           function()
             vim.ui.input({ prompt = "Ship message: " }, function(input)
               if not input or input == "" then return end
-              vim.cmd('split | terminal ship -m "' .. input .. '"')
+              vim.cmd('botright 15split | terminal pwsh -NoExit -Command ship -m "' .. input .. '"')
             end)
           end,
           desc = "Ship with message",
-        },
-      },
-      v = {
-        ["p"] = {
-          '"_dP',
         },
       },
     },

@@ -25,4 +25,14 @@ end
 require "lazy_setup"
 require "polish"
 require "config.keymaps"
+require "config.options"
 require("mini.surround").setup()
+--Default Keymaps
+-- | sa | Add surounding
+-- | sd | Delete surounding
+-- | sr | Replace surounding
+-- | sf | Find surounding (right)
+-- | sF | Find surounding (left)
+-- | sh | Highlight surounding
+-- | sn | Update n_lines
+-- | l / n | as suffix for prev/next

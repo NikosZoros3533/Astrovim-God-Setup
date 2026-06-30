@@ -78,5 +78,12 @@ end
 vim.keymap.set("n", "<leader>vr", M.run, { desc = "Run LÖVE (silent)" })
 vim.keymap.set("n", "<leader>vc", M.runWithLog, { desc = "Run LÖVE (console)" })
 vim.keymap.set("n", "<leader>ve", M.stop, { desc = "Stop LÖVE" })
-
+vim.keymap.set("n", "<C-d>", "<C-d>zz", { desc = "move down in buffer with cursor centered" })
+vim.keymap.set("n", "<C-u>", "<C-u>zz", { desc = "move up in buffer with cursor centered" })
+vim.keymap.set("n", "<leader>re", "<cmd>restart<cr>", { desc = "Restart Neovim(:restart)" })
+vim.keymap.set("x", "p", [["_dP]], { desc = "Paste over selection without losing yanked text" })
+vim.keymap.set({ "n", "v" }, "<leader>d", [["_d]], { desc = "Delete without yanking" })
+vim.keymap.set("n", "<C-c", ":nohl<CR>", { desc = "Clear search highlighting", silent = true })
+vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv", { desc = "moves lines down in visual selection" })
+vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv", { desc = "moves lines up in visual selection" })
 return M
