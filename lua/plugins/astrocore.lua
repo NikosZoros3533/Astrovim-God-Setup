@@ -42,8 +42,28 @@ return {
         },
       },
     },
+    options = {
+      opt = { -- vim.opt.<key>
+        relativenumber = true, -- sets vim.opt.relativenumber
+        number = true, -- sets vim.opt.number
+        spell = false, -- sets vim.opt.spell
+        signcolumn = "yes", -- sets vim.opt.signcolumn to yes
+        wrap = false, -- sets vim.opt.wrap
+        tabstop = 4,
+        softtabstop = 4,
+        shiftwidth = 4,
+        expandtab = true,
+        smartindent = true,
+        autoindent = true,
+        swapfile = false,
+        backup = false,
+        completeopt = "menuone,noinsert,noselect",
+        selection = "inclusive",
+      },
+    },
   },
-} -- return {
+}
+-- return {
 --   "AstroNvim/astrocore",
 --   ---@type AstroCoreOpts
 --   opts = {
