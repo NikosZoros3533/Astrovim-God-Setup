@@ -88,4 +88,5 @@ vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv", { desc = "moves lines down in visua
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv", { desc = "moves lines up in visual selection" })
 vim.keymap.set("n", "n", "nzzzv", { desc = "Next search result(centered)" })
 vim.keymap.set("n", "N", "Nzzzv", { desc = "Previous search result(centered)" })
+vim.keymap.set("i", "<C-BS>", "<C-W>")
 return M
