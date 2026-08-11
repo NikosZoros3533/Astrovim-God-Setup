@@ -9,51 +9,136 @@
 return {
   "AstroNvim/astrocore",
 
-  ---@type AstroCoreOpts
   opts = {
     mappings = {
+      -- ============================================================
+      -- NORMAL MODE
+      -- ============================================================
       n = {
+        -- Buffer
         ["<Leader>c"] = {
           function()
-            local bufs = vim.fn.getbufinfo { buflisted = 1, listed = 1 }
+            local bufs = vim.fn.getbufinfo { buflisted = 1 }
 
             require("astrocore.buffer").close(0)
 
-            -- if last buffer -> open dashboard
-            if not bufs[2] then require("snacks").dashboard() end
+            if #bufs <= 1 then require("snacks").dashboard() end
           end,
           desc = "Close buffer",
         },
-        ["<Leader>y@"] = {
+
+        -- Yank entire buffer with visual feedback
+        ["<Leader>V"] = {
           function()
-            vim.cmd "%y+"
-            vim.notify "Entire buffer copied"
+            vim.cmd "normal! ggVG"
+            vim.notify "Entire buffer selection"
           end,
-          desc = "Yank whole buffer",
+          desc = "Select entire buffer",
         },
+
+        -- Ship
         ["<Leader>gA"] = {
           function()
             vim.ui.input({ prompt = "Ship message: " }, function(input)
               if not input or input == "" then return end
+
               vim.cmd('botright 15split | terminal pwsh -NoExit -Command ship -m "' .. input .. '"')
             end)
           end,
           desc = "Ship with message",
         },
+
+        -- Center scrolling
+        ["<C-d>"] = {
+          "<C-d>zz",
+          desc = "Scroll down and center",
+        },
+
+        ["<C-u>"] = {
+          "<C-u>zz",
+          desc = "Scroll up and center",
+        },
+
+        -- Search results
+        ["n"] = {
+          "nzzzv",
+          desc = "Next search result",
+        },
+
+        ["N"] = {
+          "Nzzzv",
+          desc = "Previous search result",
+        },
+
+        -- Restart Neovim
+        ["<Leader>re"] = {
+          "<Cmd>restart<CR>",
+          desc = "Restart Neovim",
+        },
+
+        -- Clear search highlighting
+        ["<Esc><Esc>"] = {
+          "<Cmd>nohlsearch<CR>",
+          desc = "Clear search highlight",
+        },
+      },
+
+      -- ============================================================
+      -- VISUAL MODE
+      -- ============================================================
+      v = {
+        -- Paste over selection without losing yank
+        ["p"] = {
+          [["_dP"]],
+          desc = "Paste without losing yank",
+        },
+
+        -- Delete without overwriting register
+        ["<Leader>d"] = {
+          [["_d]],
+          desc = "Delete without yanking",
+        },
+
+        -- Move selected lines
+        ["J"] = {
+          ":m '>+1<CR>gv=gv",
+          desc = "Move selection down",
+        },
+
+        ["K"] = {
+          ":m '<-2<CR>gv=gv",
+          desc = "Move selection up",
+        },
+      },
+
+      -- ============================================================
+      -- INSERT MODE
+      -- ============================================================
+      i = {
+        ["<C-BS>"] = {
+          "<C-W>",
+          desc = "Delete previous word",
+        },
       },
     },
+
     options = {
-      opt = { -- vim.opt.<key>
-        relativenumber = true, -- sets vim.opt.relativenumber
-        number = true, -- sets vim.opt.number
-        spell = false, -- sets vim.opt.spell
+      opt = {
+        relativenumber = true,
+        number = true,
+
+        spell = false,
+
         tabstop = 4,
         softtabstop = 4,
         shiftwidth = 4,
+
         smartindent = true,
         autoindent = true,
+
         swapfile = false,
         backup = false,
+
         completeopt = "menuone,noinsert,noselect",
         selection = "inclusive",
       },

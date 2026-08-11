@@ -24,7 +24,6 @@ end
 
 require "lazy_setup"
 require "polish"
-require "config.keymaps"
 require("mini.surround").setup()
 --Default Keymaps
 -- | sa | Add surounding
