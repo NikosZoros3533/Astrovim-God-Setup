@@ -69,7 +69,6 @@ return {
           "Nzzzv",
           desc = "Previous search result",
         },
-
         -- Restart Neovim
         ["<Leader>re"] = {
           "<Cmd>restart<CR>",
@@ -92,13 +91,6 @@ return {
           [["_dP"]],
           desc = "Paste without losing yank",
         },
-
-        -- Delete without overwriting register
-        ["<Leader>d"] = {
-          [["_d]],
-          desc = "Delete without yanking",
-        },
-
         -- Move selected lines
         ["J"] = {
           ":m '>+1<CR>gv=gv",
@@ -115,13 +107,13 @@ return {
       -- INSERT MODE
       -- ============================================================
       i = {
-        ["<C-BS>"] = {
+        ["<C-h>"] = {
           "<C-W>",
           desc = "Delete previous word",
         },
+        ["<C-z>"] = { "<C-o>u", desc = "Undo" },
       },
     },
-
     options = {
       opt = {
         relativenumber = true,
@@ -141,6 +133,24 @@ return {
 
         completeopt = "menuone,noinsert,noselect",
         selection = "inclusive",
+      },
+    },
+    features = {
+      autopairs = true, -- enable autopairs at start
+      highlighturl = true, -- highlight URLs at start
+      notifications = false, -- enable notifications at start
+    },
+    diagnostics = {
+      virtual_text = {
+        severity = {
+          min = vim.diagnostic.severity.ERROR,
+        },
+      },
+      signs = true,
+      underline = {
+        severity = {
+          min = vim.diagnostic.severity.ERROR,
+        },
       },
     },
   },
