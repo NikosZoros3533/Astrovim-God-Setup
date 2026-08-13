@@ -12,11 +12,11 @@ return {
     opts = {
       features = {
         codelens = true,
-        document_highlight = false,
-        inlay_hints = false,
-        linked_editing_range = false,
-        semantic_tokens = false,
-        signature_help = false,
+        -- document_highlight = false,
+        -- inlay_hints = false,
+        -- linked_editing_range = false,
+        -- semantic_tokens = false,
+        -- signature_help = false,
       },
       config = {
         lua_ls = {

@@ -6,12 +6,18 @@
 
 ---@type LazySpec
 return {
-  "folke/lazydev.nvim",
-  ft = "lua",
-  opts = {
-    library = {
-      { path = "${3rd}/luv/library", words = { "vim%.uv" } },
+  {
+    "folke/lazydev.nvim",
+    ft = "lua",
+    opts = {
+      library = {
+        { path = "${3rd}/luv/library", words = { "vim%.uv" } },
+      },
     },
+  },
+  {
+    "windwp/nvim-ts-autotag",
+    opts = {},
   },
 }
 -- return {
@@ -26,30 +32,6 @@ return {
 --   },
 --
 --   -- == Examples of Overriding Plugins ==
---
---   -- customize dashboard options
---   {
---     "folke/snacks.nvim",
---     opts = {
---       dashboard = {
---         preset = {
---           header = table.concat({
---             " █████  ███████ ████████ ██████   ██████ ",
---             "██   ██ ██         ██    ██   ██ ██    ██",
---             "███████ ███████    ██    ██████  ██    ██",
---             "██   ██      ██    ██    ██   ██ ██    ██",
---             "██   ██ ███████    ██    ██   ██  ██████ ",
---             "",
---             "███    ██ ██    ██ ██ ███    ███",
---             "████   ██ ██    ██ ██ ████  ████",
---             "██ ██  ██ ██    ██ ██ ██ ████ ██",
---             "██  ██ ██  ██  ██  ██ ██  ██  ██",
---             "██   ████   ████   ██ ██      ██",
---           }, "\n"),
---         },
---       },
---     },
---   },
 --
 --   -- You can disable default plugins as follows:
 --   { "max397574/better-escape.nvim", enabled = false },

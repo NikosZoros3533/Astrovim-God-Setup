@@ -78,7 +78,7 @@ return {
         -- Clear search highlighting
         ["<Esc><Esc>"] = {
           "<Cmd>nohlsearch<CR>",
-          desc = "Clear search highlight",
+          desc = "which_key_ignore",
         },
       },
 

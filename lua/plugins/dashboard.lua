@@ -22,5 +22,6 @@ return {
         -- },
       },
     },
+    indent = { enabled = false },
   },
 }
