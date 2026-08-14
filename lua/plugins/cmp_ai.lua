@@ -3,20 +3,14 @@ return {
   optional = true,
 
   opts = function(_, opts)
-    opts.keymap = opts.keymap or {}
-
-    -- Better completion source hierarchy
+    -- Initialize nested tables safely
     opts.sources = opts.sources or {}
-    opts.sources.default = {
-      "lsp",
-      "snippets",
-      "path",
-      "buffer",
-    }
-
-    -- Better provider tuning
     opts.sources.providers = opts.sources.providers or {}
 
+    -- 1. Better completion source hierarchy
+    opts.sources.default = { "lsp", "snippets", "path", "buffer" }
+
+    -- 2. Better provider tuning & Gibberish Filtering
     opts.sources.providers.lsp = {
       score_offset = 100,
     }
@@ -30,26 +24,18 @@ return {
     }
 
     opts.sources.providers.buffer = {
-      score_offset = 40,
+      score_offset = 10, -- Kept at the bottom of the list
+      min_keyword_length = 4, -- Stops blink from suggesting 1-3 letter random words
+      max_items = 4, -- Limits total buffer suggestions to avoid crowding
     }
 
-    -- Predictable frontend workflow keymaps
+    -- 3. CLEANED: Predictable frontend workflow keymaps (AI completely removed)
     opts.keymap = {
       preset = "default",
 
       ["<Tab>"] = {
-        -- 1. AI completion FIRST
-        function()
-          if vim.g.ai_accept then return vim.g.ai_accept() end
-        end,
-
-        -- 2. Completion navigation
         "select_next",
-
-        -- 3. Snippet jump
         "snippet_forward",
-
-        -- 4. Normal fallback
         "fallback",
       },
 
@@ -59,27 +45,24 @@ return {
         "fallback",
       },
 
-      -- Confirm completion
       ["<CR>"] = {
         "accept",
         "fallback",
       },
 
-      -- Manual completion trigger
       ["<C-Space>"] = {
         "show",
         "show_documentation",
         "hide_documentation",
       },
 
-      -- Close menu
       ["<C-e>"] = {
         "hide",
         "fallback",
       },
     }
 
-    -- Better completion UX
+    -- 4. Better completion UX
     opts.completion = opts.completion or {}
 
     opts.completion.documentation = {

@@ -13,9 +13,30 @@ return {
       indent = true, -- enable/disable treesitter based indentation
       auto_install = false, -- enable/disable automatic installation of detected languages
       ensure_installed = {
+        "javascript",
+        "typescript",
+        "tsx",
+        "html",
+        "css",
+        "json",
+        "jsdoc",
+
+        -- Lua / Neovim
         "lua",
         "vim",
-        -- add more arguments for adding more treesitter parsers
+        "vimdoc",
+
+        -- General development
+        "bash",
+        "c",
+        "diff",
+
+        -- Documentation
+        "markdown",
+        "markdown_inline",
+
+        -- Python
+        "python", -- add more arguments for adding more treesitter parsers
       },
       textobjects = {
         select = {
